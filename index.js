@@ -13,7 +13,10 @@ client.on('message', msg => {
   if (msg.content === '/uhe') {
     msg.reply('uheeeeeeeeee!');
   }
-  if(msg.content.includes('hue') || msg.content.includes('uhee') || msg.content.includes('prometiste')){
+  if (msg.content.includes('naaa') || msg.content.includes('buu')) {
+    msg.reply('ay que lataa!')
+  }
+  if (msg.content.includes('hue') || msg.content.includes('uhee') || msg.content.includes('prometiste')) {
     Math.random() > 0.5 ? msg.reply('tu me lo prometiste viejo!') : msg.reply('oh me salio wequereke')
   }
 });
