@@ -1,6 +1,7 @@
 require('dotenv').config()
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const broadcast = client.voice.createBroadcast();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -25,6 +26,12 @@ client.on('message', msg => {
   }
   if (msg.content.includes('naaa') || msg.content.includes('buu')) {
     msg.reply('ay que lataa!')
+  }
+  if(msg.content.includes('que lata')) {
+    broadcast.play('http://www.sample-videos.com/audio/mp3/wave.mp3');
+    for (const connection of client.voice.connections.values()) {
+      connection.play(broadcast);
+    }
   }
   if(msg.content.includes('hue') || msg.content.includes('uhee') || msg.content.includes('prometiste')){
     Math.random() > 0.5 ? msg.reply('tu me lo prometiste viejo!') : msg.reply('oh me salio wequereke')
