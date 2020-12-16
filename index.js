@@ -13,6 +13,16 @@ client.on('message', msg => {
   if (msg.content === '/uhe') {
     msg.reply('uheeeeeeeeee!');
   }
+  if (msg.content === '/jugar') {
+    let val = Math.random()
+    if(val < 0.3) {
+      msg.reply('FM');
+    }else if(val < 0.6 && val >= 0.3) {
+      msg.reply('F');
+    }else {
+      msg.reply('L');
+    }
+  }
   if(msg.content.includes('hue') || msg.content.includes('uhee') || msg.content.includes('prometiste')){
     Math.random() > 0.5 ? msg.reply('tu me lo prometiste viejo!') : msg.reply('oh me salio wequereke')
   }
