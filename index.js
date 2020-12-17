@@ -48,9 +48,6 @@ client.on('message', async msg => {
   if (msg.content === '/help') {
     msg.channel.send('ayuda con que gil! uheee');
   }
-  if (msg.content === '/uhe') {
-      msg.channel.send('uheeeeeeeeee!');
-  }
   if (msg.content === '/jugar') {
     let val = Math.random()
     if (val < 0.3) {
@@ -74,8 +71,10 @@ client.on('message', async msg => {
   }
 
   if (msg.content.includes('hue') || msg.content.includes('uhee') || msg.content.includes('prometiste')) {
-    Math.random() > 0.5 ? msg.reply('tu me lo prometiste viejo!') : msg.reply('oh me salio wequereke')
+    let value = Math.random() 
+    value > 0.8 ? msg.reply('tu me lo prometiste viejo!') : value < 0.4 ? msg.reply('oh me salio wequereke') : msg.reply('uheeeeee!')
   }
+  
   if(msg.content === 'hablemos') {
     connectVoiceChannel(msg)
   }
