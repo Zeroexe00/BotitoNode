@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 const ytdl = require("discord-ytdl-core");
 const client = new Discord.Client();
 
+let gameVotes = []
+let isVoting = false
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
@@ -43,8 +45,45 @@ async function connectVoiceChannel(msg, str = '') {
     msg.reply("Error: ya me rompiste wey! " + error)
   }
 }
-
+function handleDemocraticElection(msg) {
+  let vote = {
+    name: msg.author.id,
+    gameName:''
+  }
+  if(msg.content === 'f') {
+    vote.gameName = 'Fornite'
+  }else if (msg.content === 'lol') {
+    vote.gameName = 'League of Legend'
+  } else if (msg.content === 'p' || msg.content.includes('fobia')) {
+    vote.gameName = 'Phasmofobia'
+  }else {
+    msg.reply('is that a vote? you need to vote for f,lol,p')
+  }
+  // console.log(msg)
+  if(!gameVotes.some((e)=> e.name === msg.author.id)){
+    gameVotes.push(vote)
+  }else {
+    msg.reply('ya votaste hijito!')
+  }
+}
 client.on('message', async msg => {
+  // console.log(JSON.stringify(msg.author.bot,null,2),isVoting)
+  // console.log(gameVotes)
+  if(isVoting && !msg.author.bot) {
+    handleDemocraticElection(msg)
+  }
+  
+  if(msg.author.bot) return
+
+  if(msg.content === '/quejugar') {
+    isVoting= true
+    setTimeout(()=> {
+      isVoting = false;
+      msg.channel.send('los resultados son : ' + JSON.stringify(gameVotes,null,2))
+      gameVotes = []
+    },120000)
+    msg.channel.send('Empieza la votación... los leo pueden votar por f o lol o p');
+  }
   if (msg.content === '/help') {
     msg.channel.send('ayuda con que gil! uheee');
   }
@@ -58,7 +97,7 @@ client.on('message', async msg => {
       msg.channel.send('L');
     }
   }
-  if (msg.content.includes('naaa') || msg.content.includes('buu')) {
+  if (msg.content.includes('naaa') || msg.content.includes('buu') || msg.content.includes('Naa')) {
     msg.channel.send('ay que lataa!');
   }
   if (msg.content.includes('/re ')) {
@@ -70,7 +109,7 @@ client.on('message', async msg => {
     msg.channel.send('HERE');
   }
 
-  if (msg.content.includes('hue') || msg.content.includes('uhee') || msg.content.includes('prometiste')) {
+  if (msg.content.includes('hue') || msg.content.includes('prometiste')) {
     let value = Math.random() 
     value > 0.8 ? msg.reply('tu me lo prometiste viejo!') : value < 0.4 ? msg.reply('oh me salio wequereke') : msg.reply('uheeeeee!')
   }
