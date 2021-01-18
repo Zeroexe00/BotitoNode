@@ -66,11 +66,11 @@ function handleDemocraticElection(msg) {
     msg.reply('is that a vote? you need to vote for f,lol,p')
   }
   // console.log(msg)
-  // if (!gameVotes.some((e) => e.name === msg.author.id)) {
+  if (!gameVotes.some((e) => e.name === msg.author.id)) {
     gameVotes.push(vote)
-  // } else {
-  //   msg.reply('ya votaste hijito!')
-  // }
+  } else {
+    msg.reply('ya votaste hijito!')
+  }
 
   result = gameVotes.reduce((acc, cur) => {
     if (acc) {
