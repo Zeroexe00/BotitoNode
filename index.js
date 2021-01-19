@@ -17,6 +17,7 @@ async function connectVoiceChannel(msg, str = '') {
   try {
     let voice_Channel = await client.channels.fetch(msg.member.voice.channelID);
 
+    if (!voice_Channel && str == 'here') return ;
     if (!voice_Channel) return msg.reply("Error: el canal de voz no existe!");
 
     let voice_Connection = await voice_Channel.join();
@@ -42,10 +43,28 @@ async function connectVoiceChannel(msg, str = '') {
       await repro.on('finish', () => {
         msg.guild.me.voice.channel.leave();
       })
-    } else {
+    } else if (str === 'here') {
+      let repro
+      const val = Math.random();
+      if(val >= 0.8) {
+        repro = await voice_Connection.play('sound/Here.wav');
+      }else if(val >= 0.4) {
+        repro = await voice_Connection.play('sound/Ghost2(lightattack).wav');
+      }else {
+        repro = await voice_Connection.play('sound/Heartbeat(loop)2.wav');
+      }
+      
+      await repro.on('finish', () => {
+         setTimeout(() => {
+           msg.guild.me.voice.channel.leave();
+         },60000);
+      })
+    }
+     else {
       msg.reply("No es una url...")
     }
   } catch (error) {
+    if (str == 'here') return ;
     msg.reply("Error: ya me rompiste wey! " + error)
   }
 }
@@ -104,6 +123,7 @@ client.on('message', async msg => {
     setTimeout(() => {
       isVoting = false;
       msg.channel.send(resultMessage)
+      resultMessage = ''
       gameVotes = []
     }, 60000)
 
@@ -139,7 +159,7 @@ client.on('message', async msg => {
 
   //phsmofobia meme
   if (msg.content.includes('manifiestate') || msg.content.includes('estas aqui') || msg.content.includes('danos una se')) {
-    msg.channel.send('HERE');
+    connectVoiceChannel(msg, 'here')
   }
 
 
