@@ -1,7 +1,20 @@
+const mySecret = process.env['TOKEN']
 require('dotenv').config()
 const Discord = require('discord.js');
 const ytdl = require("discord-ytdl-core");
 const client = new Discord.Client();
+const express = require('express')
+const app = express()
+const port = 8080
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+
 
 let gameVotes = []
 let result = []
@@ -17,14 +30,15 @@ async function connectVoiceChannel(msg, str = '') {
   try {
     let voice_Channel = await client.channels.fetch(msg.member.voice.channelID);
 
-    if (!voice_Channel && str == 'here') return ;
+    if (!voice_Channel && str == 'here') return;
     if (!voice_Channel) return msg.reply("Error: el canal de voz no existe!");
 
     let voice_Connection = await voice_Channel.join();
     // await voice_Connection.play(await ytdl('hhttps://www.youtube.com/watch?v=IDgm3fXa8Kw'), { type: 'opus' });
-    // let stream = ytdl("https://www.youtube.com/watch?v=IDgm3fXa8Kw", {
-    // let stream = ytdl("https://www.youtube.com/watch?v=o-hzTmeCqN0", {
-    if (str.includes('https://')) {
+    // let stream = 
+    //ytdl("https://www.youtube.com/watch?v=IDgm3fXa8Kw", () => {
+      // let stream = ytdl("https://www.youtube.com/watch?v=o-hzTmeCqN0", {
+      if(str.includes('https://')) {
       let stream = ytdl(str, {
         filter: "audioonly",
         opusEncoded: true,
@@ -43,28 +57,28 @@ async function connectVoiceChannel(msg, str = '') {
       await repro.on('finish', () => {
         msg.guild.me.voice.channel.leave();
       })
-    } else if (str === 'here') {
+    } else if (msg.content === 'here') {
       let repro
       const val = Math.random();
-      if(val >= 0.8) {
+      if (val >= 0.8) {
         repro = await voice_Connection.play('sound/Here.wav');
-      }else if(val >= 0.4) {
+      } else if (val >= 0.4) {
         repro = await voice_Connection.play('sound/Ghost2(lightattack).wav');
-      }else {
+      } else {
         repro = await voice_Connection.play('sound/Heartbeat(loop)2.wav');
       }
-      
+
       await repro.on('finish', () => {
-         setTimeout(() => {
-           msg.guild.me.voice.channel.leave();
-         },60000);
+        setTimeout(() => {
+          msg.guild.me.voice.channel.leave();
+        }, 60000);
       })
     }
-     else {
-      msg.reply("No es una url...")
+    else {
+      msg.reply(msg.content + "--No es una url...")
     }
   } catch (error) {
-    if (str == 'here') return ;
+    if (str == 'here') return;
     msg.reply("Error: ya me rompiste wey! " + error)
   }
 }
@@ -102,7 +116,7 @@ function handleDemocraticElection(msg) {
       }
     }
   }, [])
-  result = result.sort((a,b) => a.numVotes + b.numVotes)
+  result = result.sort((a, b) => a.numVotes + b.numVotes)
   resultMessage = `El resultado fue ${result[0].gameName} con ${result[0].numVotes}`
 }
 client.on('message', async msg => {
@@ -170,9 +184,9 @@ client.on('message', async msg => {
   }
 
   //chatear  voz con el bot
-  if (msg.content === 'hablemos') {
+  if (msg.content === 'hablemos' || msg.content === 'here') {
     connectVoiceChannel(msg)
   }
 });
 
-client.login(process.env.TOKEN);
+client.login(mySecret);
