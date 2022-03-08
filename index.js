@@ -1,11 +1,11 @@
-const mySecret = process.env['TOKEN']
+const mySecret = process.env['TOKEN'] ||  process.env.TOKEN
 require('dotenv').config()
 const Discord = require('discord.js');
 const ytdl = require("discord-ytdl-core");
 const client = new Discord.Client();
 const express = require('express')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 6000
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
