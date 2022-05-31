@@ -1,18 +1,18 @@
-const mySecret = process.env['TOKEN']
+const mySecret = process.env['TOKEN'] ||  process.env.TOKEN
 require('dotenv').config()
 const Discord = require('discord.js');
 const ytdl = require("discord-ytdl-core");
 const client = new Discord.Client();
 const express = require('express')
 const app = express()
-const port = 8080
+const port = process.env.PORT || 6000
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
 
 
