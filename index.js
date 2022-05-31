@@ -34,20 +34,12 @@ async function connectVoiceChannel(msg, str = '') {
     if (!voice_Channel) return msg.reply("Error: el canal de voz no existe!");
 
     let voice_Connection = await voice_Channel.join();
-    // await voice_Connection.play(await ytdl('hhttps://www.youtube.com/watch?v=IDgm3fXa8Kw'), { type: 'opus' });
-    // let stream = 
-    //ytdl("https://www.youtube.com/watch?v=IDgm3fXa8Kw", () => {
-      // let stream = ytdl("https://www.youtube.com/watch?v=o-hzTmeCqN0", {
-      if(str.includes('https://')) {
+    if(str.includes('https://')) {
       let stream = ytdl(str, {
         filter: "audioonly",
         opusEncoded: true,
         encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
       });
-      // let stream = ytdl.arbitraryStream("https://listen.moe/kpop/opus", {
-      //     opusEncoded: true,
-      //     encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
-      // });
       let repro = await voice_Connection.play(stream, { type: 'opus' });
       await repro.on('finish', () => {
         msg.guild.me.voice.channel.leave();
@@ -72,6 +64,11 @@ async function connectVoiceChannel(msg, str = '') {
         setTimeout(() => {
           msg.guild.me.voice.channel.leave();
         }, 60000);
+      })
+    }else if (str == 'sugee') {
+      let repro = await voice_Connection.play('sound/luffy_sugoi.mp3');
+      await repro.on('finish', () => {
+        msg.guild.me.voice.channel.leave();
       })
     }
     else {
@@ -120,8 +117,6 @@ function handleDemocraticElection(msg) {
   resultMessage = `El resultado fue ${result[0].gameName} con ${result[0].numVotes}`
 }
 client.on('message', async msg => {
-  // console.log(JSON.stringify(msg.author.bot,null,2),isVoting)
-  // console.log(gameVotes)
   if (isVoting && !msg.author.bot) {
     handleDemocraticElection(msg)
   }
@@ -186,6 +181,9 @@ client.on('message', async msg => {
   //chatear  voz con el bot
   if (msg.content === 'hablemos' || msg.content === 'here') {
     connectVoiceChannel(msg)
+  }
+  if(msg.content.includes('sugee')) {
+    connectVoiceChannel(msg, 'sugee')
   }
 });
 
