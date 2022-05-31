@@ -191,6 +191,9 @@ client.on('message', async msg => {
   if(msg.content.includes('sugee')) {
     await connectVoiceChannel(msg, 'sugee')
   }
+  if(msg.content.includes('stop')) {
+    await connectVoiceChannel(msg, 'stop')
+  }
 });
 
 client.login(mySecret);
