@@ -8,11 +8,11 @@ const app = express()
 const port = process.env.PORT || 6000
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello Bot!')
 })
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}, botready`)
 })
 
 
@@ -34,6 +34,12 @@ async function connectVoiceChannel(msg, str = '') {
     if (!voice_Channel) return msg.reply("Error: el canal de voz no existe!");
 
     let voice_Connection = await voice_Channel.join();
+
+    if(msg.content === 'stop') {
+      voice_Connection.disconnect();
+      return;
+    }
+
     if(str.includes('https://')) {
       let stream = ytdl(str, {
         filter: "audioonly",
@@ -168,7 +174,7 @@ client.on('message', async msg => {
 
   //phsmofobia meme
   if (msg.content.includes('manifiestate') || msg.content.includes('estas aqui') || msg.content.includes('danos una se')) {
-    connectVoiceChannel(msg, 'here')
+    await connectVoiceChannel(msg, 'here')
   }
 
 
@@ -180,10 +186,10 @@ client.on('message', async msg => {
 
   //chatear  voz con el bot
   if (msg.content === 'hablemos' || msg.content === 'here') {
-    connectVoiceChannel(msg)
+    await connectVoiceChannel(msg)
   }
   if(msg.content.includes('sugee')) {
-    connectVoiceChannel(msg, 'sugee')
+    await connectVoiceChannel(msg, 'sugee')
   }
 });
 
