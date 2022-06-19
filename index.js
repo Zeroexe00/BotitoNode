@@ -7,7 +7,7 @@ import express from 'express'
 const client = new Discord.Client();
 const app = express()
 
-app.get('/', (res) => {
+app.get('/', (_,res) => {
   res.send('Hello Bot!')
 })
 
