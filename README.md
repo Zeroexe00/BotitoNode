@@ -1,11 +1,11 @@
 # BotitoNode
-bot discord en node js
+a simple discord bot in NodeJS with discord.js lib
 
-#install deps
+# install deps
 npm install
 
-#dev
+# dev
 npm run dev
 
-#prod
+# prod
 npm run build
