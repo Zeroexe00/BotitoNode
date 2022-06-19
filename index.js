@@ -71,13 +71,13 @@ client.on('message', async msg => {
   //reproducir video
   if (msg.content.includes('/re ')) {
     let message = msg.content.split('/re ')
-    await connectVoiceChannel(msg, message[1])
+    await connectVoiceChannel(msg, message[1], client)
   }
 
 
   //phsmofobia meme
   if (msg.content.includes('manifiestate') || msg.content.includes('estas aqui') || msg.content.includes('danos una se')) {
-    await connectVoiceChannel(msg, 'here')
+    await connectVoiceChannel(msg, 'here', client)
   }
 
 
@@ -89,13 +89,13 @@ client.on('message', async msg => {
 
   //chatear  voz con el bot
   if (msg.content === 'hablemos' || msg.content === 'here') {
-    await connectVoiceChannel(msg)
+    await connectVoiceChannel(msg, '', client)
   }
   if(msg.content.includes('sugee')) {
-    await connectVoiceChannel(msg, 'sugee')
+    await connectVoiceChannel(msg, 'sugee', client)
   }
   if(msg.content.includes('stop')) {
-    await connectVoiceChannel(msg, 'stop')
+    await connectVoiceChannel(msg, 'stop', client)
   }
 });
 
