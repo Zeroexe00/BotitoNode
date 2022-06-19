@@ -1,6 +1,6 @@
 import ytdl from "discord-ytdl-core";
 //funcion para la reproduccion de videos
-export const connectVoiceChannel = async (msg, str = '') => {
+export const connectVoiceChannel = async (msg, str = '', client) => {
   try {
     let voice_Channel = await client.channels.fetch(msg.member.voice.channelID);
 
