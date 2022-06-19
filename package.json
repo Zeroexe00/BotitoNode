@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "bot discord node",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon node index.js",
     "start": "node index.js",

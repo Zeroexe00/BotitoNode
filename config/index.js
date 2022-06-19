@@ -1,4 +1,5 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 const mySecret = process.env['TOKEN'] ||  process.env.TOKEN
 const port = process.env.PORT || 6000
 

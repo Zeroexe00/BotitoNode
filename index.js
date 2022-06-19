@@ -1,9 +1,11 @@
-import { mySecret, port} from './config'
-import { handleDemocraticElection, connectVoiceChannel } from './src'
+import { mySecret, port} from './config/index.js'
+import { handleDemocraticElection, connectVoiceChannel } from './src/index.js'
+import Discord from 'discord.js'
+import express from 'express'
 
-const Discord = require('discord.js');
+
 const client = new Discord.Client();
-const app = require('express')()
+const app = express()
 
 app.get('/', (res) => {
   res.send('Hello Bot!')
@@ -28,7 +30,7 @@ client.on('message', async msg => {
   }
 
   if (msg.author.bot) return
-  
+
   //votacion de juegos
   if (msg.content === '/quejugar') {
 

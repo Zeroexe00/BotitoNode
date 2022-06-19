@@ -1,4 +1,4 @@
-const ytdl = require("discord-ytdl-core");
+import ytdl from "discord-ytdl-core";
 //funcion para la reproduccion de videos
 export const connectVoiceChannel = async (msg, str = '') => {
   try {

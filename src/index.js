@@ -1,5 +1,5 @@
-import { connectVoiceChannel } from './src/scripts/videoPlay.js'
-import { handleDemocraticElection } from './src/scripts/democraticVotes.js'
+import { connectVoiceChannel } from './scripts/videoPlay.js'
+import { handleDemocraticElection } from './scripts/democraticVotes.js'
 
 export {
   connectVoiceChannel,
