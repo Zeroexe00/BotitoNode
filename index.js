@@ -99,4 +99,4 @@ client.on('message', async msg => {
   }
 });
 
-// client.login(mySecret);
+client.login(mySecret);
